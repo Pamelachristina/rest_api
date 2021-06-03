@@ -10,55 +10,37 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'A first name is required'
+          msg: 'A title is required'
         },
         notEmpty: {
-          msg: 'Please provide a first name'
+          msg: 'Please provide a title'
         }
       }
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'A last name is required'
+          msg: 'A description is required'
         },
         notEmpty: {
-          msg: 'Please provide a last name'
+          msg: 'Please provide a description'
         }
       }
     },
-    estimatedTime: {
-      type: DataTypes.STRING,  
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'A password is required'
-        },
-        notEmpty: {
-          msg: 'Please provide a password'
-        },
-        len: {
-          args: [8, 20],
-          msg: 'The password should be between 8 and 20 characters in length'
-        }
-      }
-    },
-    materialsNeeded: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'An email is required'
-        }
-      }
-    },
-   /*  userId: {
-        
-    } */
+    estimatedTime: DataTypes.STRING,
+
+    materialsNeeded: DataTypes.STRING
+   
 
   }, { sequelize });
+
+  Course.associate = (models) => {
+    Course.belongsTo(models.User, {
+        foreignKey: 'userId'
+    });
+}
 
   return Course;
 };
